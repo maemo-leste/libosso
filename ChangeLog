@@ -1,0 +1,287 @@
+2010-05-10 Adam Endrodi <adam.endrodi@blumsoft.eu>
+
+	Release 2.32
+
+2010-02-18 Kimmo Hämäläinen <kimmo.hamalainen@nokia.com>
+
+	NB#130496 Remove Scratchboxism in libosso packaging
+
+	Carsten Munk: Add autoconf, automake, libtool to Build-Depends.
+
+2010-02-12 Adam Endrodi <adam.endrodi@blumsoft.eu>
+
+	NB#156056 Phone application is minimized/closed automatically
+		  when brought to foreground in certain scenarious
+
+	* src/osso-application-top.c (osso_app_top_show_animation):
+	  Do actually append the topped application's service id to the
+	  message.
+
+2010-01-21 Kimmo Hämäläinen <kimmo.hamalainen@nokia.com>
+
+	Release 2.30
+
+	* src/osso-rpc.c (_rpc_set_cb_f): Use _msg_handler_set_cb_f_free_data
+	instead of _msg_handler_set_cb_f to free 'rpc' on unset.
+
+2010-01-07  Alban Crequy  <alban.crequy@collabora.co.uk>
+
+	Release 2.28
+
+	* src/osso-cp-plugin.c:
+	NB#126619 - memory leak in is_applet_running_in_cp
+
+2009-10-20 Kimmo Hämäläinen <kimmo.hamalainen@nokia.com>
+
+	Release 2.26
+
+	Reverted David's changes. 
+
+2009-08-06 Kimmo Hämäläinen <kimmo.hamalainen@nokia.com>
+
+	Release 2.24
+
+	David Kedves:
+	New code for Control Panel applets, required by the new HCP.
+
+2009-02-10 Kimmo Hämäläinen <kimmo.hamalainen@nokia.com>
+
+	Release 2.18
+
+	Reverted Armin's patch to see if it breaks old applications.
+
+2008-09-17  Armin Burgmeier  <armin@openismus.com>
+
+	Based on a patch from Daniel Elstner <daniel.kitta@gmail.com> on
+	bugs.maemo.org bug #2168
+
+	* src/muali.h:
+	* src/osso-hw.h:
+	* src/libosso.h:
+	* src/osso-time.c:
+	* src/osso-locale.c:
+	* src/osso-display.c:
+	* src/osso-hw.c:
+	* src/osso-internal.h:
+	* src/osso-rpc.c:
+	* src/osso-mime.c:
+	* src/osso-application-autosave.c:
+	* src/osso-init.c:
+	* src/osso-application-top.c: Added a _full version of all functions
+	taking a callback. The _full version additionally takes a
+	GDestroyNotify to free the user_data when the function is done with
+	the callback.
+
+	* ut/osso-application-top/test-top-prog.c: Use the destroy notify to
+	unref the main loop.
+
+	* ut/osso-rpc/test-osso-rpc.c: Adapt to an internal API change.
+
+	* ut/osso-statusbar/test-osso-sbevent-prog.c: Unref a main loop with
+	g_main_loop_unref instead of g_free.
+
+2007-06-05  Johan Bilien <johan.bilien@nokia.com>
+
+	* src/osso-cp-plugin.c:
+	- use RTLD_LOCAL in dlopen to avoid conflict of symbols
+	in opened plugins, now that we keep the plugins resident.
+	Fixes: NB#59489
+
+2007-03-28  Johan Bilien <johan.bilien@nokia.com>
+
+	* src/osso-internal.h: replaced GArray *cp_plugins with
+	a GHashTable
+	* src/osso-cp-plugin.c:
+	(try_plugin): use this hash table to store
+	the dlopen handle, and reuse the handle if the same plugin
+	is run again (making it resident).
+	(close_lib): removed since unused
+
+2007-03-27  Marius Vollmer  <marius.vollmer@nokia.com>
+
+	* src/osso-state.h (validate_state): Removed static prototype,
+	which pointless in a header.
+
+	* src/deprecated.c: New, to bring osso_application_set_exit_cb(),
+	osso_state_open_write(), osso_state_open_read(), and
+	osso_state_close() back.
+	* src/Makefile.am (libosso_la_SOURCES): Include it.
+
+2006-10-23   Murray Cumming  <murrayc@murrayc.com>
+
+	* src/muali.h:
+	* src/osso-hw.c: (_set_handler), (muali_set_event_handler):
+	* src/osso-internal.h:
+	Use a non-const void* for user_data to avoid const build 
+	problems.
+
+2006-10-04  Murray Cumming  <murrayc@murrayc.com>
+
+	* src/osso-application-top.c: (osso_application_unset_top_cb):
+	* src/osso-hw.c: (osso_hw_unset_event_cb):
+	* src/osso-init.c: (add_to_if_hash), (_msg_handler_rm_cb_f):
+	* src/osso-mime.c: (osso_mime_unset_cb), (osso_mime_unset_cb_full):
+	* src/osso-rpc.c: (osso_rpc_unset_cb_f),
+	(osso_rpc_unset_default_cb_f): Attempt to fix const errors and 
+	warnings to fix the build with gcc 3.3.4. However, the use of 
+	a const function pointer does not seem to make any sense, and this 
+	is possibly not the best solution.
+
+2006-04-24  Marius Vollmer  <marius.vollmer@nokia.com>
+
+        Support for language bindings that have trouble calling varargs
+        functions.
+
+	* src/libosso.h, src/osso-rpc.c, src/osso-internal.h
+	(osso_rpc_argfill, osso_rpc_run_with_argfill,
+	osso_rpc_run_system_with_argfill,
+	osso_rpc_async_run_with_argfill): New.
+	(_run_rpc): Renamed to _rpc_run_with_argfill, changed parameters
+        to use the osso_rpc_argfill method.  Call argfill parameter
+        instead of using _append_args.  Made static.
+	(fill_from_va_list_data, fill_from_va_list): New.
+	(osso_rpc_run, osso_rpc_run_system, osso_rpc_run_with_defaults):
+        Use them together with _rpc_run_with_argfill instead of using
+        _rpc_run.
+	(_rpc_async_run): Renamed to _rpc_run_with_argfill, changed
+        parameters to use the osso_rpc_argfill method.  Call argfill
+        parameter instead of using _append_args.
+	(osso_rpc_async_run, osso_rpc_async_run_with_defaults): Use it
+        instead of _rpc_async_run.
+
+	* src/osso-statusbar.c (osso_statusbar_send_event): Use
+        osso_rpc_run_system instead of _rpc_run_wrap.
+	(_rpc_run_wrap): Removed.
+
+2005-11-01  Marius Vollmer  <marius.vollmer@nokia.com>
+
+	Released 0.10.0.
+
+	* configure.ac (WFLAGS): Removed -Wcast-align since that gives
+	unhealable warnings on ARM.
+
+2005-10-26  Marius Vollmer  <marius.vollmer@nokia.com>
+
+	Silenced warnings.
+	
+	* configure.ac (WFLAGS): Removd -Wunreachable-code since GCC 3.3
+	gives false warnings.
+
+	* src/osso-time.h (_time_to_string): Removed prototype.
+	
+	* src/osso-state.c (_write_state, _read_state): Added prototypes.
+
+	* src/osso-log.c: Include log-functions.h, include osso-internal.h
+	using "..." syntax.
+	
+	* src/osso-internal.h (_msg_handler_set_cb_f_free_data): Added
+	prototype.
+
+	* src/osso-init.h (_cleanup_state_dir): Removed prototype.
+	(_osso_log_handler): Only define with LIBOSSO_DEBUG.
+
+	* ut/osso-cp-plugin/testplugin.c (get_service_name): Added
+	prototype.
+	(execute): Removed unused local variable 'action'.
+
+	* ut/osso-cp-plugin/testplugin2.c (save_state, get_service_name):
+	Added prototypes.
+
+	* ut/osso-init/test-osso-init.c (system_bus_init): Added prototype.
+
+	* ut/osso-mime/test-osso-mime-prog.c (main): Return a value at the
+	end.
+
+	* ut/osso-mime/test-osso-mime.c (test_osso_mime_cb_function):
+	Added prototype.  Removed unused local variable 'retval'.
+
+2005-10-25  Marius Vollmer  <marius.vollmer@nokia.com>
+
+	Merged changes between 0.9.18 and 0.9.20.
+	
+	* src/osso-mem.c: Changes from Andrei Laperie to make it work with
+	kernels that don't provide the expected information in /proc.
+
+2005-10-24  Marius Vollmer  <marius.vollmer@nokia.com>
+
+	Do not break source-compatibility gratuitously.
+	
+	* src/libosso.h, src/osso-rpc.c (osso_rpc_set_cb_f,
+	osso_rpc_set_cb_f_with_free): Make it so that the new API has the
+	new name osso_rpc_set_cb_f_with_free and the old API is still
+	available with the old name osso_rpc_set_cb_f.
+	(osso_rpc_set_default_cb_f, osso_rpc_set_default_cb_f_with_free):
+	Likewise.
+	* src/Makefile.am (libosso_la_SOURCES): Removed osso-rpc-old.c.
+
+	* ut/osso-rpc/test-osso-rpc-prog.c, ut/osso-rpc/test-osso-rpc.c:
+	Reverted change from 2005-10-18.
+	
+2005-10-19  Marius Vollmer  <marius.vollmer@nokia.com>
+
+	* src/libosso.h (osso_rpc_set_cb_f): New #define to rename
+	osso_rpc_set_cb_f to osso_rpc_set_cb_f_with_free in the object
+	file.
+	(osso_rpc_set_default_cb_f): Likewise with
+	osso_rpc_set_default_cb_f_with_free as the object file name.
+
+	* src/osso-rpc-old.c: New file.
+	(osso_rpc_set_cb_f, osso_rpc_set_default_cb_f): New functions for
+	maintaining binary compatibility.
+	* src/Makefile.am (libosso_la_SOURCES): Added osso-rpc-old.c.
+	
+	* src/osso-mime.c (_mime_handler): Pass correct count to _freeargv
+	when realloc fails.
+
+2005-10-18  Marius Vollmer  <marius.vollmer@nokia.com>
+
+	* configure.ac: Changed version to 0.10.0.
+	
+	* src/Makefile.am (libosso_la_LDFLAGS): Stepped current and age,
+	for the following changes.  We maintain binary compatability with
+	the magic of versioned symbols.
+
+	* src/libosso.h: Clarified docs about memory management.
+	(osso_rpc_t): Removed const from value.s since it normally points
+	to dynamically allocated memory.
+	(osso_rpc_free_val): New.
+	(osso_rpc_retval_free_f): New.
+	(osso_rpc_set_cb_f, osso_rpc_set_default_cb_f): Added retval_free
+	param.
+
+	* src/osso-rpc.c (_osso_rpc_t): Added retval_free field.
+	(osso_rpc_free_val): New.
+	(_rpc_set_cb_f): Added retval_free param and put it into callback
+	data.
+	(_test_rpc_set_cb_f): Pass NULL for new retval_free param of
+	above.
+	(osso_rpc_set_cb_f): Added retval_free param and pass it on to
+	_rpc_set_cb_f.
+	(osso_rpc_set_default_cb_f): Added retval_free param and put it
+	into callback data.
+	(_rpc_handler): Initialize retval to DBUS_TYPE_INVALID.  Free
+	argument osso_rpc_t structure after calling the user callback.
+	Call retval_free on retval.
+	(_async_return_handler): Free retval after calling the callback.
+	
+	* src/osso-mime.c (_mime_handler): Free arguments after calling
+	user function.
+	(_get_arg): Don't g_strdup the string, it is already in fresh
+	memory when coming from dbus_message_iter_get_string.
+	(_freeargv): Free strings with dbus_free.
+
+	* src/osso-state.c (_read_state): Close file on error exit.
+
+	* ut/osso-rpc/test-osso-rpc-prog.c (main): Pass osso_rpc_free_val
+	as retval param of osso_rpc_set_cb_f and
+	osso_rpc_set_default_cb_f.
+	(cb): Make sure that retval->value.s is a dynamically allocated
+	string that can be freed with g_free.
+
+	* ut/osso-rpc/test-osso-rpc.c: Use NULL as retval_free thoughout.
+	
+2005-09-29  Marius Vollmer  <marius.vollmer@nokia.com>
+
+	* src/osso-application-top.c (utf8_safe): New.
+	(_append_environment): Use it to skip over environment variables
+	that can not be transmitted as a DBUS_TYPE_STRING.
