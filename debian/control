@@ -12,7 +12,7 @@ Standards-Version: 3.6.0
 Package: libosso-dev
 Section: devel
 Architecture: any
-Depends: libosso1 (= ${Source-Version}),
+Depends: libosso1 (= ${source:Version}),
          libdbus-glib-1-dev
 Description: Basic library for maemo applications - development files
  Libosso is the basic library containing required and helpful functions
@@ -51,7 +51,7 @@ Priority: optional
 Architecture: any
 Conflicts: libosso0 (<< 0.8.6-1)
 Replaces: libosso0 (<< 0.8.6-1)
-Depends: libosso1 (= ${Source-Version}),
+Depends: libosso1 (= ${source:Version}),
          libdbus-glib-1-dev,
          outo
 Description: Basic library for maemo applications - unit tests
@@ -89,7 +89,7 @@ Description: Basic library for maemo applications - Scratchbox D-Bus configurati
 Package: libosso1-dbg
 Section: libs
 Architecture: any
-Depends: libosso1 (= ${Source-Version})
+Depends: libosso1 (= ${source:Version})
 Description: Basic library for maemo applications - detached debug symbols
  Libosso is the basic library containing required and helpful functions
  for maemo applications. One of Libosso's main features is RPC (Remote
