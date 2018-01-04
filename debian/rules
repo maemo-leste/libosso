@@ -21,7 +21,6 @@ configure_flags := \
 	--mandir=\$${prefix}/share/man \
 	--infodir=\$${prefix}/share/info \
 	--disable-dependency-tracking \
-	--disable-gtk-doc \
 	--sysconfdir=/etc \
 	--disable-maintainer-mode
 
@@ -88,7 +87,7 @@ binary-arch: build install
 	dh_install --sourcedir=debian/tmp -v
 	dh_installman $(p)
 	dh_link
-	dh_strip --dbg-package=libosso1
+	dh_strip --dbgsym-migration='libosso1-dbg (<< 2.32)'
 	dh_compress
 	dh_fixperms
 	dh_makeshlibs -plibosso1 -V"libosso1 (>= 2.23)"
