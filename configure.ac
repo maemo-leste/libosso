@@ -1,6 +1,7 @@
 # -*- sh -*-
 AC_INIT([libosso], [2.26])
 AC_CONFIG_SRCDIR([src/libosso.h])
+AC_CONFIG_MACRO_DIRS([m4])
 AM_INIT_AUTOMAKE([-Wall])
 AM_CONFIG_HEADER([config.h])
 AC_LANG(C)
@@ -75,13 +76,14 @@ AC_ARG_WITH([dbus-confdir-dir], [AS_HELP_STRING([--with-dbus-config-dir=PATH],
 ##################################################################
 
 # Checks for programs.
+AM_PROG_AR
 AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_AWK
 AC_PROG_MAKE_SET
 AC_PROG_INSTALL
 AC_PROG_LIBTOOL
-AC_PROG_RANLIB
+LT_INIT
 
 # PKG_PROG_PKG_CONFIG should be used to set this (but is missing?)
 PKG_CONFIG=pkg-config
