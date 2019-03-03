@@ -6,6 +6,7 @@ AM_CONFIG_HEADER([config.h])
 AC_LANG(C)
 #AC_GNU_SOURCE
 AM_MAINTAINER_MODE
+AM_PROG_AR
 
 ##################################################################
 # Enable debug flag
