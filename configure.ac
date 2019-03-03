@@ -83,8 +83,7 @@ AC_PROG_INSTALL
 AC_PROG_LIBTOOL
 AC_PROG_RANLIB
 
-# PKG_PROG_PKG_CONFIG should be used to set this (but is missing?)
-PKG_CONFIG=pkg-config
+PKG_PROG_PKG_CONFIG
 AC_SUBST(PKG_CONFIG)
 
 AC_PATH_PROG(DOXYGEN, doxygen, [echo])
