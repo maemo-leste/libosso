@@ -6,7 +6,10 @@ Build-Depends: debhelper (>= 10),
                libdbus-glib-1-dev (>= 0.61-osso18),
                libglib2.0-dev,
                doxygen,
-               mce-dev, autoconf, automake, libtool
+               mce-dev,
+               autoconf,
+               automake,
+               libtool,
 Standards-Version: 3.6.0
 
 Package: libosso-dev
