@@ -88,7 +88,7 @@ binary-arch: build install
 	dh_install --sourcedir=debian/tmp -v
 	dh_installman $(p)
 	dh_link
-	dh_strip --dbg-package=libosso1
+	dh_strip
 	dh_compress
 	dh_fixperms
 	dh_makeshlibs -plibosso1 -V"libosso1 (>= 2.23)"
