@@ -1,3 +1,9 @@
+libosso (2.35~pre1) unstable; urgency=medium
+
+  * Migrate to dh build sequencer
+
+ -- Arthur Demchenkov <spinal.by@gmail.com>  Sun, 03 Mar 2019 22:23:49 +0300
+
 libosso (2.34-1) unstable; urgency=medium
 
   * Add multiarch support
