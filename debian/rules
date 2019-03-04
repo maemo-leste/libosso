@@ -10,5 +10,3 @@ override_dh_auto_build:
 	$(MAKE) doxygen
 
 CFLAGS += -Wall -ansi -Wshadow
-# Use soft-float and thumb mode if it is enabled.
-CFLAGS += $(if $(findstring thumb,$(DEB_BUILD_OPTIONS)),-mthumb)
