@@ -9,4 +9,5 @@ override_dh_auto_build:
 	dh_auto_build
 	$(MAKE) doxygen
 
-CFLAGS += -Wall -ansi -Wshadow
+DEB_CFLAGS_MAINT_APPEND += -Wall -ansi -Wshadow
+export DEB_CFLAGS_MAINT_APPEND
