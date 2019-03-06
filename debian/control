@@ -2,11 +2,15 @@ Source: libosso
 Section: x11
 Priority: optional
 Maintainer: Kimmo Hämäläinen <kimmo.hamalainen@nokia.com>
-Build-Depends: debhelper (>= 4.0.0),
+Build-Depends: debhelper (>= 10),
+               pkg-config,
                libdbus-glib-1-dev (>= 0.61-osso18),
                libglib2.0-dev,
                doxygen,
-               mce-dev, autoconf, automake, libtool
+               mce-dev,
+               autoconf,
+               automake,
+               libtool,
 Standards-Version: 3.6.0
 
 Package: libosso-dev
@@ -73,6 +77,7 @@ Priority: optional
 Conflicts: libosso0 (<< 0.8.6-1)
 Replaces: libosso0 (<< 0.8.6-1)
 Architecture: all
+Multi-arch: foreign
 Description: Basic library for maemo applications - Scratchbox D-Bus configuration
  Libosso is the basic library containing required and helpful functions
  for maemo applications. One of Libosso's main features is RPC (Remote
@@ -86,26 +91,10 @@ Description: Basic library for maemo applications - Scratchbox D-Bus configurati
  .
  This package contains the D-Bus configuration settings for Scratchbox.
 
-Package: libosso1-dbg
-Section: libs
-Architecture: any
-Depends: libosso1 (= ${source:Version})
-Description: Basic library for maemo applications - detached debug symbols
- Libosso is the basic library containing required and helpful functions
- for maemo applications. One of Libosso's main features is RPC (Remote
- Procedure Calls) services (as it "wraps" D-Bus). In addition, Libosso
- provides access to low-level hardware functions, such as turning on (or
- keeping on) the display, autosaving, state saving and system time.
- .
- All maemo-compliant applications must use Libosso to respond coherently
- to system changes and signals, such as the battery low, pre-shutdown
- and state saving signals.
- .
- This package contains the detached debug symbols.
-
 Package: libosso1-doc
 Section: doc
 Architecture: all
+Multi-arch: foreign
 Description: Basic library for maemo applications - documentation
  Libosso is the basic library containing required and helpful functions
  for maemo applications. One of Libosso's main features is RPC (Remote

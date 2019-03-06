@@ -6,6 +6,7 @@ AM_CONFIG_HEADER([config.h])
 AC_LANG(C)
 #AC_GNU_SOURCE
 AM_MAINTAINER_MODE
+AM_PROG_AR
 
 ##################################################################
 # Enable debug flag
@@ -45,9 +46,9 @@ fi
 WFLAGS="-Wall -Wmissing-prototypes -std=c99"
 if test x${libosso_use_debug} = xyes ; then
     AC_DEFINE([LIBOSSO_DEBUG],1,[Build extra debug code])
-    OSSO_CFLAGS="-g -ansi -D_BSD_SOURCE -D_GNU_SOURCE -rdynamic $WFLAGS"
+    OSSO_CFLAGS="-g -ansi -D_DEFAULT_SOURCE -D_GNU_SOURCE -rdynamic $WFLAGS"
 else
-    OSSO_CFLAGS="-g -ansi -D_BSD_SOURCE -D_GNU_SOURCE -O2 -rdynamic $WFLAGS"
+    OSSO_CFLAGS="-g -ansi -D_DEFAULT_SOURCE -D_GNU_SOURCE -O2 -rdynamic $WFLAGS"
 fi
 
 AC_SUBST([OSSO_CFLAGS])
@@ -83,8 +84,7 @@ AC_PROG_INSTALL
 AC_PROG_LIBTOOL
 AC_PROG_RANLIB
 
-# PKG_PROG_PKG_CONFIG should be used to set this (but is missing?)
-PKG_CONFIG=pkg-config
+PKG_PROG_PKG_CONFIG
 AC_SUBST(PKG_CONFIG)
 
 AC_PATH_PROG(DOXYGEN, doxygen, [echo])
