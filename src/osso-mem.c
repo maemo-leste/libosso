@@ -293,6 +293,7 @@ static void setup_sys_values(void)
  * ------------------------------------------------------------------------- */
 static void* saw_malloc_hook(size_t size, const void* caller)
 {
+#if 0
    static unsigned count = 0; /* Validation count per number of allocations */
    void* ptr;       /* Allocated pointer, NULL means OOM situation happened */
 
@@ -336,6 +337,7 @@ static void* saw_malloc_hook(size_t size, const void* caller)
 #endif
 
    return ptr;
+#endif
 } /* saw_malloc_hook */
 
 
@@ -563,6 +565,7 @@ int osso_mem_saw_enable(size_t threshold,
                   void* context
             )
 {
+#if 0
    osso_mem_usage_t current;
    size_t           available;
 
@@ -611,6 +614,7 @@ int osso_mem_saw_enable(size_t threshold,
                   available, threshold);
       return -EINVAL;
    }
+#endif
 } /* osso_mem_saw_enable */
 
 /* ------------------------------------------------------------------------- *
@@ -621,12 +625,14 @@ int osso_mem_saw_enable(size_t threshold,
  * ------------------------------------------------------------------------- */
 void osso_mem_saw_disable(void)
 {
+#if 0
    THREAD_LOCK();
    if(saw_malloc_hook == __malloc_hook)
       __malloc_hook = saw_old_malloc_hook;
    THREAD_UNLOCK();
 
    ULOG_INFO_F("SAW hook removed!");
+#endif
 } /* osso_mem_saw_disable */
 
 
